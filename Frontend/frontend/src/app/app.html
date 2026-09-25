@@ -1,59 +1,79 @@
-<div style="padding: 20px; font-family: Arial, sans-serif;">
-  <h2>Gerenciamento de Produtos (.NET + Angular)</h2>
+<div class="main-container">
+  <header class="header">
+    <h2>Gerenciamento de Produtos</h2>
+    <span class="badge">.NET 8 + Angular</span>
+  </header>
 
-  <!-- Busca por ID -->
-  <section style="margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
-    <h3>Buscar Produto por ID</h3>
-    <input type="number" [(ngModel)]="idBusca" placeholder="Digite o ID" style="margin-right: 10px; padding: 5px;">
-    <button (click)="buscarPorId()" style="padding: 5px 10px;">Buscar</button>
-    <div *ngIf="produtoBusca" style="margin-top: 10px; background: #f4f4f4; padding: 10px;">
-      <p><strong>ID:</strong> {{ produtoBusca.id }} | <strong>Nome:</strong> {{ produtoBusca.nome }} | <strong>Preço:</strong> R$ {{ produtoBusca.preco }}</p>
+  <div class="content-grid">
+    <!-- Coluna da Esquerda: Ações (Buscar e Adicionar) -->
+    <div class="sidebar-actions">
+      <!-- Novo Produto -->
+      <section class="card">
+        <h3>Novo Produto</h3>
+        <div class="form-group">
+          <input type="text" [(ngModel)]="novoNome" placeholder="Nome do produto" class="form-control">
+          <input type="number" [(ngModel)]="novoPreco" placeholder="Preço (R$)" class="form-control">
+          <button type="button" (click)="criarProduto()" class="btn btn-primary">Adicionar Produto</button>
+        </div>
+      </section>
+
+      <!-- Busca por ID -->
+      <section class="card">
+        <h3>Pesquisar por ID</h3>
+        <div class="form-group">
+          <div class="search-box">
+            <input type="number" [(ngModel)]="idBusca" placeholder="Digite o ID..." class="form-control">
+            <button type="button" (click)="buscarPorId()" class="btn btn-secondary">Buscar</button>
+          </div>
+          <div *ngIf="produtoBusca" class="search-result">
+            <p><strong>ID:</strong> {{ produtoBusca.id }}</p>
+            <p><strong>Nome:</strong> {{ produtoBusca.nome }}</p>
+            <p><strong>Preço:</strong> R$ {{ produtoBusca.preco }}</p>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
 
-  <!-- Novo Produto -->
-  <section style="margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
-    <h3>Adicionar Novo Produto</h3>
-    <input type="text" [(ngModel)]="novoNome" placeholder="Nome do produto" style="margin-right: 10px; padding: 5px;">
-    <input type="number" [(ngModel)]="novoPreco" placeholder="Preço" style="margin-right: 10px; padding: 5px;">
-    <button (click)="criarProduto()" style="padding: 5px 10px;">Adicionar</button>
-  </section>
-
-  <!-- Tabela de Produtos -->
-  <section style="border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
-    <h3>Lista de Produtos</h3>
-    <table border="1" cellpadding="8" style="width: 100%; border-collapse: collapse; text-align: left;">
-      <thead>
-        <tr style="background: #eee;">
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Preço</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let p of produtos">
-          <td>{{ p.id }}</td>
-          <td>
-            <span *ngIf="editandoId !== p.id">{{ p.nome }}</span>
-            <input *ngIf="editandoId === p.id" [(ngModel)]="editNome" type="text" style="padding: 3px;">
-          </td>
-          <td>
-            <span *ngIf="editandoId !== p.id">R$ {{ p.preco }}</span>
-            <input *ngIf="editandoId === p.id" [(ngModel)]="editPreco" type="number" style="padding: 3px;">
-          </td>
-          <td>
-            <ng-container *ngIf="editandoId !== p.id">
-              <button (click)="iniciarEdicao(p)" style="margin-right: 5px;">Editar</button>
-              <button (click)="remover(p.id)" style="background: #ff4d4d; color: white; border: none; padding: 3px 8px;">Remover</button>
-            </ng-container>
-            <ng-container *ngIf="editandoId === p.id">
-              <button (click)="salvarEdicao(p.id)" style="background: #4CAF50; color: white; border: none; padding: 3px 8px; margin-right: 5px;">Salvar</button>
-              <button (click)="cancelarEdicao()" style="padding: 3px 8px;">Cancelar</button>
-            </ng-container>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+    <!-- Coluna da Direita: Tabela de Produtos -->
+    <div class="main-content">
+      <section class="card">
+        <h3>Lista de Produtos Cadastrados</h3>
+        <div class="table-responsive">
+          <table class="modern-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th class="text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of produtos">
+                <td>#{{ p.id }}</td>
+                <td>
+                  <span *ngIf="editandoId !== p.id" class="text-bold">{{ p.nome }}</span>
+                  <input *ngIf="editandoId === p.id" [(ngModel)]="editNome" type="text" class="form-control-sm">
+                </td>
+                <td>
+                  <span *ngIf="editandoId !== p.id">R$ {{ p.preco }}</span>
+                  <input *ngIf="editandoId === p.id" [(ngModel)]="editPreco" type="number" class="form-control-sm">
+                </td>
+                <td class="text-right">
+                  <ng-container *ngIf="editandoId !== p.id">
+                    <button type="button" (click)="iniciarEdicao(p)" class="btn-action btn-edit">Editar</button>
+                    <button type="button" (click)="remover(p.id)" class="btn-action btn-delete">Remover</button>
+                  </ng-container>
+                  <ng-container *ngIf="editandoId === p.id">
+                    <button type="button" (click)="salvarEdicao(p.id)" class="btn-action btn-save">Salvar</button>
+                    <button type="button" (click)="cancelarEdicao()" class="btn-action btn-cancel">Cancelar</button>
+                  </ng-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
 </div>

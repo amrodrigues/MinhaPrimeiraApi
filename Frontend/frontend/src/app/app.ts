@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProdutosService } from './services/produtos.spec';
@@ -12,83 +12,83 @@ import { Produto } from './models/produto.model';
   styleUrls: ['./app.css']
 })
 export class AppComponent implements OnInit {
-  produtos: Produto[] = [];
-  produtoBusca: Produto | null = null;
-  idBusca: number | null = null;
-
+  produtos: any[] = [];
   novoNome: string = '';
   novoPreco: number | null = null;
+  
+  idBusca: number | null = null;
+  produtoBusca: any = null;
 
   editandoId: number | null = null;
   editNome: string = '';
   editPreco: number | null = null;
 
-  constructor(private produtosService: ProdutosService) {}
+  constructor(
+    private produtosService: ProdutosService,
+    private cdr: ChangeDetectorRef // Injeção essencial para atualizar o ecrã no 1º clique
+  ) {}
 
   ngOnInit(): void {
     this.carregarProdutos();
   }
 
   carregarProdutos(): void {
-    this.produtosService.listarTodos().subscribe({
-      next: (data) => (this.produtos = data),
-      error: (err) => console.error('Erro ao listar produtos', err)
+    this.produtosService.listar().subscribe(dados => {
+      this.produtos = dados;
+      this.cdr.detectChanges(); // Força atualização imediata
     });
-  }
-
-  buscarPorId(): void {
-    if (this.idBusca) {
-      this.produtosService.buscarPorId(this.idBusca).subscribe({
-        next: (data) => (this.produtoBusca = data),
-        error: (err) => {
-          console.error('Produto não encontrado', err);
-          this.produtoBusca = null;
-        }
-      });
-    }
   }
 
   criarProduto(): void {
     if (this.novoNome && this.novoPreco !== null) {
-      this.produtosService.criar({ nome: this.novoNome, preco: this.novoPreco }).subscribe({
-        next: () => {
-          this.novoNome = '';
-          this.novoPreco = null;
-          this.carregarProdutos();
-        },
-        error: (err) => console.error('Erro ao criar produto', err)
+      this.produtosService.criar({ nome: this.novoNome, preco: this.novoPreco }).subscribe(() => {
+        this.novoNome = '';
+        this.novoPreco = null;
+        this.carregarProdutos();
+        this.cdr.detectChanges(); // Garante que o botão Adicionar reflete logo na tabela
       });
     }
   }
 
-  iniciarEdicao(produto: Produto): void {
-    this.editandoId = produto.id;
-    this.editNome = produto.nome;
-    this.editPreco = produto.preco;
-  }
-
-  salvarEdicao(id: number): void {
-    if (this.editPreco !== null) {
-      this.produtosService.atualizar(id, { nome: this.editNome, preco: this.editPreco }).subscribe({
-        next: () => {
-          this.editandoId = null;
-          this.carregarProdutos();
-        },
-        error: (err) => console.error('Erro ao atualizar produto', err)
+  buscarPorId(): void {
+    if (this.idBusca) {
+      this.produtosService.buscarPorId(this.idBusca).subscribe(res => {
+        this.produtoBusca = res;
+        this.cdr.detectChanges();
       });
     }
+  }
+
+  iniciarEdicao(p: any): void {
+    this.editandoId = p.id;
+    this.editNome = p.nome;
+    this.editPreco = p.preco;
+    this.cdr.detectChanges();
   }
 
   cancelarEdicao(): void {
     this.editandoId = null;
+    this.editNome = '';
+    this.editPreco = null;
+    this.cdr.detectChanges();
+  }
+
+  salvarEdicao(id: number): void {
+    if (this.editPreco !== null) {
+      this.produtosService.atualizar(id, { nome: this.editNome, preco: this.editPreco }).subscribe(() => {
+        this.editandoId = null;
+        this.editNome = '';
+        this.editPreco = null;
+        this.carregarProdutos();
+        this.cdr.detectChanges(); // Fecha a caixinha e atualiza no 1º clique
+      });
+    }
   }
 
   remover(id: number): void {
-    if (confirm('Tem certeza que deseja remover este produto?')) {
-      this.produtosService.remover(id).subscribe({
-        next: () => this.carregarProdutos(),
-        error: (err) => console.error('Erro ao remover produto', err)
-      });
-    }
+    this.produtosService.remover(id).subscribe(() => {
+      this.carregarProdutos();
+      this.cdr.detectChanges(); // Remove da tabela no 1º clique
+    });
   }
 }

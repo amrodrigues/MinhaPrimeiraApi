@@ -23,4 +23,7 @@ return this.http.put<Produto>(`${this.apiUrl}/${id}`, produto);
 remover(id: number): Observable<void> {
 return this.http.delete<void>(`${this.apiUrl}/${id}`);
 }
+listar(): Observable<any[]> {
+  return this.http.get<any[]>(this.apiUrl);
+}
 }
