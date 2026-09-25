@@ -1,8 +1,12 @@
+
 # Gerenciamento de Produtos (.NET 8 + Angular)
 
 ## Descrição
 
 Aplicação full?stack desenvolvida para o gerenciamento de produtos, com operações completas de CRUD (Criar, Ler, Atualizar e Deletar). O projeto utiliza Angular no front?end (com componentes standalone) e .NET 8 Web API com Entity Framework Core e SQLite no back?end.
+
+<img width="1355" height="729" alt="primeiraAPI Front" src="https://github.com/user-attachments/assets/04014772-340f-4a0f-8888-4f0a1f2a0609" />
+<img width="1359" height="761" alt="primeiraAPI  Swager" src="https://github.com/user-attachments/assets/d810768e-ac5c-4ad9-b9f3-82db0add25fc" />
 
 ## Pré?requisitos
 
