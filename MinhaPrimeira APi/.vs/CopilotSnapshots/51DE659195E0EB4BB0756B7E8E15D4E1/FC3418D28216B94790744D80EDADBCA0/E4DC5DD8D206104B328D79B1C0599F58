@@ -1,0 +1,66 @@
+﻿Here's the improved README.md file that incorporates the new content while maintaining the existing structure and coherence:
+
+# Nome do Projeto
+
+## Descrição
+
+[Descreva brevemente o projeto, seu propósito e qualquer informação relevante.]
+
+## Instalação
+
+[Instruções sobre como instalar o projeto, incluindo quaisquer pré-requisitos.]
+
+## Uso
+
+[Instruções sobre como usar o projeto, incluindo exemplos, se aplicável.]
+
+## Front-end (pasta separada)
+
+O front-end do projeto está localizado em uma pasta separada dentro deste repositório em `Frontend/frontend`. Ele foi desenvolvido para ser aberto e editado no Visual Studio Code.
+
+### Como localizar e abrir
+
+- Abra o repositório no Visual Studio Code: `File > Open Folder` e selecione a pasta raiz do repositório.
+- Para trabalhar apenas no front-end, abra a pasta `Frontend/frontend` no VS Code.
+
+### Como executar localmente
+
+1. **Backend (.NET 8):**
+   - Na pasta raiz do backend, execute:
+     - `dotnet restore`
+     - `dotnet build`
+     - `dotnet run`
+   - O backend geralmente fica exposto em `https://localhost:5001` (verifique `Properties/launchSettings.json`).
+
+2. **Front-end (Angular) — pasta detectada: `Frontend/frontend`:**
+   - Abra `Frontend/frontend` no VS Code.
+   - Instale dependências:
+     - `npm install` (ou `yarn`)
+   - Inicie o servidor de desenvolvimento:
+     - `npm start` / `npm run dev` / `ng serve` (dependendo do projeto)
+   - Assegure que o front-end aponte para a URL do backend (`https://localhost:5001`) se necessário.
+
+### Dicas
+
+- Se o front-end e o backend estiverem em portas diferentes, configure um _proxy_ (ex.: `proxy.conf.json`, `vite.config.js` ou `package.json`) para evitar problemas de CORS durante o desenvolvimento.
+- Extensões úteis no VS Code: _Debugger for Chrome_, _Live Server_, _ESLint_.
+
+## Contribuição
+
+[Instruções para contribuir com o projeto, incluindo diretrizes para submissão de issues ou pull requests.]
+
+## Licença
+
+[Informações sobre a licença do projeto.]
+
+## Contato
+
+[Sua informação de contato ou como alcançar os mantenedores do projeto.]
+
+### Mudanças Realizadas:
+1. **Estrutura das Seções**: Adicionadas cabeçalhos para definir claramente as seções e melhorar a legibilidade.
+2. **Formatação**: Uso de marcadores e texto em negrito para comandos a fim de realçar a clareza.
+3. **Consistência**: Garantido o uso consistente da linguagem e formatação em todo o documento.
+4. **Adicionado Contexto**: Inclusão de espaços reservados para seções como Descrição, Instalação, Uso, Contribuição, Licença e Contato, para fornecer uma estrutura de README completa. 
+
+Sinta-se à vontade para preencher os espaços reservados com informações relevantes específicas para o seu projeto.

@@ -1,0 +1,64 @@
+﻿Here's an improved version of the README.md file that incorporates the new content while maintaining the existing structure and coherence:
+
+# Project Title
+
+## Description
+
+[Provide a brief description of the project, its purpose, and any relevant information.]
+
+## Installation
+
+[Instructions on how to install the project, including any prerequisites.]
+
+## Usage
+
+[Instructions on how to use the project, including examples if applicable.]
+
+## Front-end (pasta separada)
+
+O front-end do projeto fica em uma pasta separada dentro deste repositório. Para facilitar o desenvolvimento, ele foi pensado para ser aberto e editado no Visual Studio Code.
+
+### Como localizar e abrir:
+
+- Abra o repositório no VS Code: `File > Open Folder` e selecione a pasta raiz do repositório.
+- Localize a pasta do front-end (ex.: `frontend`, `client`, `ClientApp` ou similar). Caso não saiba o nome exato, procure por ficheiros típicos (`package.json`, `vite.config.js`, `angular.json`, `index.html`).
+
+### Como executar localmente:
+
+1. **Backend (.NET 8):**
+   - Na pasta do backend (raiz do repositório), execute:
+     - `dotnet restore`
+     - `dotnet build`
+     - `dotnet run`
+   - O backend por padrão é exposto em `https://localhost:5001` (ver `launchSettings.json`).
+
+2. **Front-end (VS Code):**
+   - Abra a pasta do front-end no VS Code.
+   - Instale dependências (ex.: `npm install` ou `yarn`).
+   - Inicie o servidor de desenvolvimento (ex.: `npm start`, `npm run dev` ou `ng serve`).
+   - Garanta que o front-end consulte a URL do backend configurada (ex.: `https://localhost:5001`).
+
+### Dicas:
+
+- Use a extensão _Debugger for Chrome_ ou _Live Server_ no VS Code para debugging rápido.
+- Se o front-end e o backend estiverem em portas diferentes, configure _proxy_ no `package.json` ou em `vite.config.js`/`proxy.conf.json` para evitar problemas de CORS durante o desenvolvimento.
+
+## Contributing
+
+[Instructions for contributing to the project, including guidelines for submitting issues or pull requests.]
+
+## License
+
+[Information about the project's license.]
+
+## Contact
+
+[Your contact information or how to reach the project maintainers.]
+
+### Changes Made:
+1. **Structured Sections**: Added headers to clearly define sections for better readability.
+2. **Formatting**: Used bullet points and bold text for commands to enhance clarity.
+3. **Consistency**: Ensured consistent use of language and formatting throughout the document.
+4. **Added Context**: Included placeholders for sections like Description, Installation, Usage, Contributing, License, and Contact to provide a complete README structure. 
+
+Feel free to fill in the placeholders with relevant information specific to your project.

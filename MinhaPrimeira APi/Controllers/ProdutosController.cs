@@ -51,10 +51,8 @@ namespace MinhaPrimeira_APi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduto(int id, Produto produto)
         {
-            if (id != produto.Id)
-            {
-                return BadRequest();
-            }
+            // FORÇA o Id do objeto a ser o mesmo que veio na URL (evita que venha 0)
+            produto.Id = id;
 
             _context.Entry(produto).State = EntityState.Modified;
 
